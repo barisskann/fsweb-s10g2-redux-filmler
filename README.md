@@ -60,7 +60,7 @@ Bu projede, küçük bir film veritabanı içeren bir web uygulamasında çalı�
 - [ ] Favoriler için iş mantığını işlemek için bir reducer dosyası oluşturun. Bu dosyada kullanacağınız InitialState objenize aşağıdaki değerlerini ekleyin:
 
   - favorites: film nesnesini içeren bir dizi (şimdilik boş)
-  - displayFavorites: Uygulamada favorilerin görüntülendiği yan alanın gösterim değerini (göster/gizle) tutan bir boolean
+ x"x
 
 - [ ] **Yeni reducerınızı ./reducers/index.js dosyasına import edin.** Başlangıç ta, switch deyimine yalnızca bir default case ekleyin.
 

@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
-import { addMovie } from './../actions/movieActions';
-
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState } from "react";
+import { addMovie } from "./../actions/movieActions";
+import { nanoid } from "nanoid";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const AddMovieForm = (props) => {
+  const { movies, favoriteArray } = useSelector(({ movies, favoriteArray }) => {
+    return { movies, favoriteArray };
+  });
+  console.log(favoriteArray);
+  const dispatch = useDispatch();
   const { push } = useHistory();
 
   const [movie, setMovie] = useState({
@@ -11,59 +17,88 @@ const AddMovieForm = (props) => {
     director: "",
     genre: "",
     metascore: 0,
-    description: ""
+    description: "",
   });
 
   const handleChange = (e) => {
     setMovie({
       ...movie,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
-  }
-
+  };
   const handleSubmit = (e) => {
-  }
+    dispatch(addMovie({ movie: { ...movie, id: Date.now() } }));
+  };
 
   const { title, director, genre, metascore, description } = movie;
   return (
     <div className="bg-white rounded-md shadow flex-1">
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className="p-5 pb-3 border-b border-zinc-200">
           <h4 className="text-xl font-bold">Add Movie</h4>
         </div>
 
         <div className="px-5 py-3">
           <div className="py-2">
-            <label className='block pb-1 text-lg'>Title</label>
-            <input value={title} onChange={handleChange} name="title" type="text" />
+            <label className="block pb-1 text-lg">Title</label>
+            <input
+              value={title}
+              onChange={handleChange}
+              name="title"
+              type="text"
+            />
           </div>
           <div className="py-2">
-            <label className='block pb-1 text-lg'>Director</label>
-            <input value={director} onChange={handleChange} name="director" type="text" />
+            <label className="block pb-1 text-lg">Director</label>
+            <input
+              value={director}
+              onChange={handleChange}
+              name="director"
+              type="text"
+            />
           </div>
           <div className="py-2">
-            <label className='block pb-1 text-lg'>Genre</label>
-            <input value={genre} onChange={handleChange} name="genre" type="text" />
+            <label className="block pb-1 text-lg">Genre</label>
+            <input
+              value={genre}
+              onChange={handleChange}
+              name="genre"
+              type="text"
+            />
           </div>
           <div className="py-2">
-            <label className='block pb-1 text-lg'>Metascore</label>
-            <input value={metascore} onChange={handleChange} name="metascore" type="number" />
+            <label className="block pb-1 text-lg">Metascore</label>
+            <input
+              value={metascore}
+              onChange={handleChange}
+              name="metascore"
+              type="number"
+            />
           </div>
           <div className="py-2">
-            <label className='block pb-1 text-lg'>Description</label>
-            <textarea value={description} onChange={handleChange} name="description"></textarea>
+            <label className="block pb-1 text-lg">Description</label>
+            <textarea
+              value={description}
+              onChange={handleChange}
+              name="description"
+            ></textarea>
           </div>
-
         </div>
         <div className="px-5 py-4 border-t border-zinc-200 flex justify-end gap-2">
           <Link to={`/movies`} className="myButton bg-zinc-500">
             Vazgeç
           </Link>
-          <button type="submit" className="myButton bg-green-700 hover:bg-green-600">Ekle</button>
+          <Link
+            onClick={handleSubmit}
+            to="/form"
+            className="myButton bg-green-700 hover:bg-green-600"
+          >
+            Ekle
+          </Link>
         </div>
       </form>
     </div>
   );
-}
+};
 
 export default AddMovieForm;
